@@ -15,16 +15,18 @@ public class SpellChecker {
 	}
 
 	public static int levenshtein(String word1, String word2) {
-		if (word1.length() == 0) {
-			return word2.length();
-		} else if (word2.length() == 0) {
-			return word1.length();
-		} else if (word1.charAt(0) == word2.charAt(0)) {
-			return levenshtein(tail(word1), tail(word2));
+		String newWord1 = word1.toLowerCase();
+		String newWord2 = word2.toLowerCase();
+		if (newWord1.length() == 0) {
+			return newWord2.length();
+		} else if (newWord2.length() == 0) {
+			return newWord1.length();
+		} else if (newWord1.charAt(0) == newWord2.charAt(0)) {
+			return levenshtein(tail(newWord1), tail(newWord2));
 		} else {
-			int insert = levenshtein(word1, tail(word2));
-			int delete = levenshtein(tail(word1), word2);
-			int replace = levenshtein(tail(word1), tail(word2));
+			int insert = levenshtein(newWord1, tail(newWord2));
+			int delete = levenshtein(tail(newWord1), newWord2);
+			int replace = levenshtein(tail(newWord1), tail(newWord2));
 
 			return 1 + Math.min(insert, Math.min(delete, replace));
 		}
